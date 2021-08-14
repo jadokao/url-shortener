@@ -4,8 +4,13 @@ const app = express()
 
 const port = 3000
 
+// import mongoDB
+require('./config/mongoose')
+
+// import css setting
 app.use(express.static('public'))
 
+// express-handlebars setting
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
