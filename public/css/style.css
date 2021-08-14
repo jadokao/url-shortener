@@ -1,0 +1,31 @@
+div {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.container {
+  max-width: 500px;
+  margin-top: 200px;
+}
+
+img {
+  margin: 10px auto;
+  height: 200px;
+  width: 200px;
+}
+
+input {
+  margin: 10px auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+button, h1 {
+  margin: 0 auto;
+}
