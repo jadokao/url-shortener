@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const { clipboard } = require('electron')
 
 const URL = require('../../models/URL')
 
@@ -16,10 +17,20 @@ router.post('/', async (req, res) => {
   }
 
   // render shortURL
-  URL.findOne({ fullURL }).lean().then(url => {
-    const shortURL = url.shortURL
-    res.render('url', { shortURL, style: 'style.css' })
-  })
+  URL.findOne({ fullURL })
+    .lean()
+    .then(url => {
+      const shortURL = url.shortURL
+      res.render('url', { shortURL, style: 'style.css' })
+    })
+    .catch(error => console.log(error))
 })
+
+// use electron to create copy function
+function copy (text) {
+  if (text) {
+    clipboard.writeText(text)
+  }
+}
 
 module.exports = router
