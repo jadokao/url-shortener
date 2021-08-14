@@ -1,13 +1,12 @@
 <div class="container">
-  <h1>URL Shortener</h1>
-  <img src="https://www.pngimages.pics/images/quotes/english/general/black-connect-art-png-transparent-52650-286139.png" alt="connection" class="img-thumbnail" />
+  <a href="/">
+    <h1>URL Shortener</h1>
+  </a>
+  <img src="https://www.pngimages.pics/images/quotes/english/general/black-connect-art-png-transparent-52650-286139.png"
+    alt="connection" class="img-thumbnail" />
   <form action="/url" method="POST">
-    <input type="text" name='fullURL'>
+    <label for="fullURL" style="display: none;">Enter an https:// URL:</label>
+    <input type="url" name='fullURL' placeholder="https://example.com" required>
     <button type="submit" class="btn btn-primary">Shorten</button>
   </form>
-  <div class="output">
-    <p>Please use the link:</p>
-    <p class='shortURL'></p>
-    <button type="button" class="btn btn-primary">Copy</button>
-  </div>
 </div>
