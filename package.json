@@ -21,8 +21,5 @@
     "method-override": "^3.0.0",
     "mongoose": "^5.13.7",
     "nanoid": "^3.1.25"
-  },
-  "devDependencies": {
-    "electron": "^13.1.9"
   }
 }

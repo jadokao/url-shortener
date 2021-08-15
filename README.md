@@ -39,7 +39,6 @@
 * mongoose: 5.13.7
 * method-override: 3.0.0
 * nanoid: 3.1.25
-* electron: 13.1.9
 ##### 視覺效果相關
 * jquery: 3.6.0
 * popper: v2.9.1
