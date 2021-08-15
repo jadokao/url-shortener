@@ -1,1 +1,1 @@
-web: electron .
+web: nodemon --exec electron .
