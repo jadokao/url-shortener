@@ -1,1 +1,1 @@
-web: nodemon --exec electron .
+web: electron app.js

@@ -20,10 +20,20 @@ router.post('/', async (req, res) => {
   URL.findOne({ fullURL })
     .lean()
     .then(url => {
-      const shortURL = url.shortURL
+      let shortURL = url.shortURL
+      shortURL = 'https://cryptic-beach-00235.herokuapp.com/url/' + shortURL
       res.render('url', { shortURL, style: 'style.css' })
     })
     .catch(error => console.log(error))
+})
+
+// set shortURL route to make it go to full url website
+router.get('/:short', async (req, res) => {
+  const shortURL = await URL.findOne({ shortURL: req.params.short })
+
+  if (shortURL == null) res.sendStatus(404)
+
+  res.redirect(shortURL.fullURL)
 })
 
 module.exports = router
