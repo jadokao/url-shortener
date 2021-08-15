@@ -1,6 +1,5 @@
 const express = require('express')
 const router = express.Router()
-const { clipboard } = require('electron')
 
 const URL = require('../../models/URL')
 
