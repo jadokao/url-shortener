@@ -1,1 +1,1 @@
-web: electron app.js
+web: node app.js

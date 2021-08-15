@@ -30,3 +30,7 @@ form {
   justify-content: center;
   align-items: center;
 }
+
+.shortURL {
+  margin: 0 0 15px 0;
+}
