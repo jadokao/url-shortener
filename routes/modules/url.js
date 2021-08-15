@@ -6,7 +6,7 @@ const URL = require('../../models/URL')
 
 // create
 router.post('/', async (req, res) => {
-  const fullURL = req.body.fullURL
+  const fullURL = req.body.fullURL.trim().toLowerCase()
 
   // 確認該網址是否已經被創造短網址
   const fullURLCheck = await URL.findOne({ fullURL })
@@ -25,12 +25,5 @@ router.post('/', async (req, res) => {
     })
     .catch(error => console.log(error))
 })
-
-// use electron to create copy function
-function copy (text) {
-  if (text) {
-    clipboard.writeText(text)
-  }
-}
 
 module.exports = router
