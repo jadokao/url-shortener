@@ -21,7 +21,7 @@ router.post('/', async (req, res) => {
     .lean()
     .then(url => {
       let shortURL = url.shortURL
-      shortURL = 'https://cryptic-beach-00235.herokuapp.com/url/' + shortURL
+      shortURL = 'https://ming-url-shortener.herokuapp.com/' + shortURL
       res.render('url', { shortURL, style: 'style.css' })
     })
     .catch(error => console.log(error))
