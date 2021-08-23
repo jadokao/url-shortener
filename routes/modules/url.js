@@ -1,7 +1,9 @@
-const express = require('express')
+// const express = require('express')
+import express from 'express'
 const router = express.Router()
 
-const URL = require('../../models/URL')
+// const URL = require('../../models/URL')
+import URL from '../../models/URL.js'
 
 // create
 router.post('/', async (req, res) => {
@@ -57,4 +59,5 @@ router.get('/:short', async (req, res) => {
   res.redirect(shortURL.fullURL)
 })
 
-module.exports = router
+// module.exports = router
+export default router
