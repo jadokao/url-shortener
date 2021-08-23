@@ -1,19 +1,15 @@
-//const express = require('express')
-import express from 'express'
-// const exphbs = require('express-handlebars')
-import exphbs from 'express-handlebars'
-// const routes = require('./routes')
-import routes from './routes/index.js'
-// const bodyParser = require('body-parser')
-import bodyParser from 'body-parser'
-import clipboardy from 'clipboardy'
+const express = require('express')
+const exphbs = require('express-handlebars')
+const routes = require('./routes')
+const bodyParser = require('body-parser')
+const clipboardy = require('clipboardy')
+
 const app = express()
 
 const port = process.env.PORT || 3000
 
 // import mongoDB
-// require('./config/mongoose')
-import db from './config/mongoose.js'
+require('./config/mongoose')
 
 // import css setting
 app.use(express.static('public'))
