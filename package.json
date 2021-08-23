@@ -4,8 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "electron .",
-    "dev": "nodemon --exec electron .",
+    "start": "node app.js",
+    "dev": "nodemon app.js",
     "seed": "node models/seeds/urlSeeder.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
