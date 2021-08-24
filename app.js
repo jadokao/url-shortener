@@ -22,7 +22,7 @@ app.engine(
     extname: '.hbs',
     helpers: {
       copyURL: function (text) {
-        clipboardy.writeSync(text)
+        clipboardy.write(text)
       },
     },
   })
