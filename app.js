@@ -22,8 +22,9 @@ app.engine(
     extname: '.hbs',
     helpers: {
       copyURL: function (text) {
-        clipboardy.write(text)
-        clipboardy.read(text)
+        if (text) {
+          clipboardy.write(text)
+        }
       },
     },
   })
