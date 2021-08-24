@@ -20,13 +20,7 @@ app.engine(
   exphbs({
     defaultLayout: 'main',
     extname: '.hbs',
-    helpers: {
-      copyURL: function (text) {
-        if (text) {
-          clipboardy.write(text)
-        }
-      },
-    },
+    helpers: require('./config/handlebars-helpers'),
   })
 )
 app.set('view engine', 'hbs')
