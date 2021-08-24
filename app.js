@@ -23,6 +23,7 @@ app.engine(
     helpers: {
       copyURL: function (text) {
         clipboardy.write(text)
+        clipboardy.read(text)
       },
     },
   })
