@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 
 const URL = require('../../models/URL')
+// Copy to clipboard in node.js
+const child_process = require('child_process')
 
 // create
 router.post('/', async (req, res) => {
@@ -35,6 +37,16 @@ router.post('/', async (req, res) => {
       })
       shortURLCheck = await URL.findOne({ shortURL: shortOutcome })
     }
+  }
+
+  const copy = function (url) {
+    // This uses an external application for clipboard access, so fill it in here
+    // Some options: pbcopy (macOS), xclip (Linux or anywhere with Xlib)
+    const COPY_APP = 'xclip'
+    const proc = child_process.spawn(COPY_APP)
+    proc.stdin.write(url, { encoding: 'utf8' })
+    proc.stdin.end()
+    console.log('copy in js')
   }
 
   // render shortURL
