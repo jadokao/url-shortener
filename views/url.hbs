@@ -8,21 +8,19 @@
     <p>Original link:</p>
     <a class="fullURL mb-3" href={{fullURL}}>{{fullURL}}</a>
     <p>Please use the shortener link:</p>
-    <a href="{{shortURL}}" class="shortURL" id="shortURL">{{shortURL}}</a>
-    <button type="button" id="copy" class="btn btn-primary mb-2" onclick="copy({{shortURL}})">Copy</button>
-    <!-- <button type="button" id="copy" class="btn btn-primary" onclick="{{#copy shortURL}}{{/copy}}">Handlebars-helper: Copy</button> -->
+    <a href="{{shortURL}}" class="shortURL" id="shortURL">{{shortURL}}</a> 
+    <button type="button" id="copy" class="btn btn-primary mb-2" onclick="copyLink()">Copy</button>
   </div>
 </div>
+
 <script>
-  // Copy to clipboard in node.js
-  const child_process = require('child_process')
-  const copy = function (url) {
-    // This uses an external application for clipboard access, so fill it in here
-    // Some options: pbcopy (macOS), xclip (Linux or anywhere with Xlib)
-    const COPY_APP = 'xclip'
-    const proc = child_process.spawn(COPY_APP)
-    proc.stdin.write(url, { encoding: 'utf8' })
-    proc.stdin.end()
-    console.log('copy in hbs')
+  function copyLink() {
+    const copyText = document.getElementById("shortURL") 
+    const selection = window.getSelection()
+    const range = document.createRange()
+    range.selectNodeContents(copyText)
+    selection.removeAllRanges()
+    selection.addRange(range)
+    document.execCommand('copy')
   }
 </script>
