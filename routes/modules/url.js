@@ -2,8 +2,8 @@ const express = require('express')
 const router = express.Router()
 
 const URL = require('../../models/URL')
-// Copy to clipboard in node.js
-const child_process = require('child_process')
+
+const { nanoid } = require('nanoid')
 
 // create
 router.post('/', async (req, res) => {
@@ -12,41 +12,44 @@ router.post('/', async (req, res) => {
   // 確認原始網址是否已經被創造短網址
   const fullURLCheck = await URL.findOne({ fullURL })
 
-  // 如果原始網址還沒有建立短網址
+  // // 如果原始網址還沒有建立短網址
   if (fullURLCheck == null) {
     // if not, create shortURL to database
     await URL.create({ fullURL })
 
     // 確認創造後的短網址是否重複
-    // 取得依據原始網址所建立的短網址
+    // 從資料庫取得依據原始網址所建立的短網址，如果資料庫沒有則回傳null
     let shortOutcome = ''
     await URL.findOne({ fullURL }).lean().then(url => {
-      shortOutcome = url.shortURL
+      url ? (shortOutcome = url.shortURL) : (shortOutcome = null)
     })
-    // 檢查剛建立的短網址是否已在資料庫裡面
-    let shortURLCheck = await URL.findOne({ shortURL: shortOutcome })
-    // 如果剛建立的短網址，已經在資料庫找到
-    while (shortURLCheck != null) {
-      // 刪除舊的並建立新的短網址
-      await URL.findOne({ fullURL }).then(url => url.remove())
-      await URL.create({ fullURL })
 
-      // 找到剛建立的短網址，並再次檢查
-      await URL.findOne({ fullURL }).lean().then(url => {
-        shortOutcome = url.shortURL
+    // 找是否有：1.已經在資料庫，跟2.剛才建立的，兩個有著重複短網址的原始網址
+    let repeatURL = []
+    await URL.find({ shortURL: shortOutcome }).lean().then(urls => {
+      urls.forEach(url => repeatURL.push(url))
+    })
+
+    // 如果剛建立的短網址，已經在資料庫找到(有一個以上的短網址是重複的)
+    while (repeatURL.length != 1) {
+      console.log('have repeated')
+      // 依據想要建立短網址的原始網址，把舊的換掉
+      await URL.findOne({ fullURL }).then(async url => {
+        url.shortURL = nanoid(5)
+        await url.save()
       })
-      shortURLCheck = await URL.findOne({ shortURL: shortOutcome })
-    }
-  }
 
-  const copy = function (url) {
-    // This uses an external application for clipboard access, so fill it in here
-    // Some options: pbcopy (macOS), xclip (Linux or anywhere with Xlib)
-    const COPY_APP = 'xclip'
-    const proc = child_process.spawn(COPY_APP)
-    proc.stdin.write(url, { encoding: 'utf8' })
-    proc.stdin.end()
-    console.log('copy in js')
+      // 找到剛再次建立的短網址
+      await URL.findOne({ fullURL }).lean().then(url => {
+        url ? (shortOutcome = url.shortURL) : (shortOutcome = null)
+      })
+
+      // 再次檢查
+      repeatURL = []
+      await URL.find({ shortURL: shortOutcome }).lean().then(urls => {
+        urls.forEach(url => repeatURL.push(url))
+      })
+    }
   }
 
   // render shortURL
