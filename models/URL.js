@@ -12,7 +12,7 @@ const urlSchema = new Schema({
   shortURL: {
     type: String,
     required: true,
-    default: nanoid(5),
+    default: () => nanoid(5),
   },
 })
 module.exports = mongoose.model('URL', urlSchema)
